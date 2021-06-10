@@ -13,10 +13,7 @@ const BookSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  liked: {
-    type: Boolean,
-    default: false,
-  },
+
   description: {
     type: String,
   },

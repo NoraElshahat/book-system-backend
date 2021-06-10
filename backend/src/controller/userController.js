@@ -9,14 +9,13 @@ const addUser = async (req, res, next) => {
 
   try {
     userAdded.password = await bcrypt.hash(userAdded.password, salt);
-    console.log(userAdded);
     await userAdded.save();
     if (!Object.keys(userAdded).length == 0) {
       return res.status(200).send({
         data: userAdded,
       });
     } else {
-      throw new ErrorHandler(400, "Book Can't be added");
+      throw new ErrorHandler(400, "User Can't register");
     }
   } catch (error) {
     next(error);
@@ -53,16 +52,24 @@ const userProfile = async (req, res) => {
   res.send('user profile');
 };
 
-//when user liked a specific book
-// const likedBook = async (req, res) => {
-//   const liked = req.liked;
-//   const BookId = req.params.id;
-//   if (liked) {
+//get all users
+const getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find({}).exec();
+    // console.log(users);
+    if (users.length !== 0) {
+      return res.status(200).send({ data: users });
+    } else {
+      throw new ErrorHandler(400, 'Something Went Wrong');
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 
-//   }
-// };
 module.exports = {
   addUser,
   userLogin,
   userProfile,
+  getUsers,
 };

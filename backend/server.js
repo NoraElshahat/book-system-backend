@@ -7,6 +7,7 @@ require('./src/db/mongoose');
 
 const bookRouter = require('./src/router/books');
 const userRouter = require('./src/router/user');
+const reviewsRouter = require('./src/router/reviews');
 app.use(cors());
 
 //body parser to convert request body to json
@@ -14,10 +15,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //use router of books
-app.use(bookRouter);
+app.use('/books', bookRouter);
 
 //use router of user
-app.use(userRouter);
+app.use('/users', userRouter);
+
+//use router of reviews
+app.use('/reviews', reviewsRouter);
 
 // middleware of central error handling
 app.use((err, req, res, next) => {
