@@ -26,9 +26,6 @@ const BookSchema = new mongoose.Schema({
   picture: {
     type: String,
   },
-  reviews: {
-    type: Array,
-  },
 });
 
 const Book = mongoose.model('Book', BookSchema);
