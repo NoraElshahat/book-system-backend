@@ -21,7 +21,8 @@ const addReview = async (req, res, next) => {
 //list reviews
 const getReviews = async (req, res, next) => {
   try {
-    const reviews = await Reviews.find({});
+    const reviews = await Reviews.find({}).populate('user_id');
+    console.log(reviews);
     if (!reviews.length == 0) {
       return res.status(200).send({ data: reviews });
     } else {
