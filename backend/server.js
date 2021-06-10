@@ -6,6 +6,7 @@ const { handleError } = require('./src/helpers/error');
 require('./src/db/mongoose');
 
 const bookRouter = require('./src/router/books');
+const userRouter = require('./src/router/user');
 app.use(cors());
 
 //body parser to convert request body to json
@@ -15,9 +16,11 @@ app.use(bodyParser.json());
 //use router of books
 app.use(bookRouter);
 
+//use router of user
+app.use(userRouter);
+
 // middleware of central error handling
 app.use((err, req, res, next) => {
-  //   console.log('hi error', err.message, err.statusCode);
   handleError(err, res);
   next();
 });
