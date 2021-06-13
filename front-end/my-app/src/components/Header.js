@@ -58,6 +58,7 @@ const Header = () => {
   const LogoWord = () => {
     return (
       <Typography variant="h6" component="h1" className={logo}>
+        {/* <img src="/book.png" width="40px" height="40px"></img> */}
         Ebook
       </Typography>
     );
