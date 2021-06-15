@@ -11,19 +11,21 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import axios from "axios";
 import Box from "@material-ui/core/Box";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import Accordion from "@material-ui/core/Accordion";
+import InsertCommentIcon from "@material-ui/icons/InsertComment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 250,
     marginTop: 100,
-    marginLeft: 70,
+    marginLeft: 50,
+    float: "left",
   },
   media: {
     height: 0,
@@ -49,6 +51,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AllBooks() {
   const [books, updateBooks] = useState([]);
+  const [liked, setLiked] = useState(false);
+  const [likes, updateLikes] = useState([]);
   // const [expanded, setExpanded] = React.useState(false);
   // const handleExpandClick = (id) => {
   //   setExpanded(!expanded);
@@ -57,8 +61,16 @@ export default function AllBooks() {
   useEffect(() => {
     axios.get("http://localhost:5000/books/books").then((res) => {
       updateBooks(res.data.data);
+      console.log(books);
+    });
+    axios.get("http://localhost:5000/likes/likes").then((res) => {
+      updateLikes(res.data.data);
+      console.log(likes);
     });
   }, []);
+  const likeBook = (liked) => {
+    setLiked(!liked);
+  };
   const classes = useStyles();
 
   return (
@@ -99,12 +111,15 @@ export default function AllBooks() {
               </CardContent>
               {/* </Collapse> */}
               <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
+                <IconButton
+                  aria-label="add to favorites"
+                  onClick={() => likeBook(liked)}
+                >
+                  {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
 
-                <IconButton aria-label="share">
-                  <ShareIcon />
+                <IconButton aria-label="Commrnt">
+                  <InsertCommentIcon />
                 </IconButton>
                 {/* <IconButton
                   className={clsx(classes.expand, {

@@ -1,5 +1,5 @@
-const Likes = require('../models/likes');
-const { ErrorHandler } = require('../helpers/error');
+const Likes = require("../models/likes");
+const { ErrorHandler } = require("../helpers/error");
 
 //add new Likes
 const addLike = async (req, res, next) => {
@@ -21,12 +21,12 @@ const addLike = async (req, res, next) => {
 //list Likes
 const getLikes = async (req, res, next) => {
   try {
-    const Likes = await Likes.find({}).populate('user_id');
-    console.log(Likes);
-    if (!Likes.length == 0) {
-      return res.status(200).send({ data: Likes });
+    const likes = await Likes.find({}).populate("user_id").populate("book_id");
+    console.log(likes);
+    if (!likes.length == 0) {
+      return res.status(200).send({ data: likes });
     } else {
-      throw new ErrorHandler(400, 'Something Went Wrong');
+      throw new ErrorHandler(400, "Something Went Wrong");
     }
   } catch (error) {
     next(error);

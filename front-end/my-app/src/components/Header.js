@@ -1,47 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
   Typography,
   makeStyles,
   Button,
-} from '@material-ui/core';
-import { Link as RouterLink } from 'react-router-dom';
+} from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   header: {
-    backgroundColor: '#400CCC',
+    backgroundColor: "#400CCC",
   },
   logo: {
-    fontFamily: 'Work Sans, sans-serif',
+    fontFamily: "Work Sans, sans-serif",
     fontWeight: 600,
-    color: '#FFFEFE',
-    textAlign: 'left',
+    color: "#FFFEFE",
+    textAlign: "left",
   },
   menuButton: {
-    fontFamily: 'Open Sans, sans-serif',
+    fontFamily: "Open Sans, sans-serif",
     fontWeight: 700,
-    size: '18px',
-    marginLeft: '38px',
+    size: "18px",
+    marginLeft: "38px",
   },
   toolbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
   },
   header: {
-    backgroundColor: '#400CCC',
-    paddingRight: '79px',
-    paddingLeft: '118px',
+    backgroundColor: "#2196f3",
+    paddingRight: "79px",
+    paddingLeft: "118px",
   },
 }));
 const headersData = [
   {
-    label: 'Books',
-    href: '/books',
+    label: "Books",
+    href: "/books",
   },
   {
-    label: 'most Liked',
-    href: '/liked-books',
+    label: "most Liked",
+    href: "/liked-books",
   },
 ];
 const Header = () => {
@@ -69,7 +69,7 @@ const Header = () => {
         <Button
           {...{
             key: label,
-            color: 'inherit',
+            color: "inherit",
             to: href,
             component: RouterLink,
             className: { menuButton },
