@@ -1,10 +1,15 @@
-const Book = require('../models/books');
-const { ErrorHandler } = require('../helpers/error');
+const Book = require("../models/books");
+const { ErrorHandler } = require("../helpers/error");
 
 //add new book
 const addBook = async (req, res, next) => {
+  const file = req.file;
   const newBook = await new Book(req.body);
+  newBook.picture = file.filename;
   try {
+    if (!file) {
+      throw new ErrorHandler(400, "File can't be uploaded");
+    }
     await newBook.save();
     if (!Object.keys(newBook).length == 0) {
       return res.status(200).send({
@@ -23,10 +28,10 @@ const addBook = async (req, res, next) => {
 const getBooks = async (req, res, next) => {
   try {
     const books = await Book.find({});
-    if (!books.length == 0) {
+    if (books.length != 0) {
       return res.status(200).send({ data: books });
     } else {
-      throw new ErrorHandler(400, 'Something Went Wrong');
+      throw new ErrorHandler(400, "No Data Found");
     }
   } catch (error) {
     next(error);
@@ -81,7 +86,7 @@ const findOneBook = async (req, res, next) => {
         data: bookFound,
       });
     } else {
-      throw new ErrorHandler(400, 'Book not Found');
+      throw new ErrorHandler(400, "Book not Found");
     }
   } catch (error) {
     next(error);
