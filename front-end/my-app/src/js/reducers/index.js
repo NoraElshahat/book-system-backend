@@ -4,6 +4,7 @@ import {
   UPDATE_BOOK,
   DELETE_BOOK,
 } from "../constants/action-types";
+import axios from "axios";
 
 const initialState = {
   books: [],
@@ -18,10 +19,13 @@ export default function rootReducer(state = initialState, action) {
         books: payload,
       };
     case GET_BOOKS:
-      return {
-        ...state,
-        books: payload,
-      };
+      axios.get("localhost:5000/books/books").then((res) => {
+        return {
+          ...state,
+          books: res.data,
+        };
+      });
+
     default:
       return {
         ...state,

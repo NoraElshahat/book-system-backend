@@ -5,10 +5,9 @@ import {
   DELETE_BOOK,
 } from "../constants/action-types";
 
-export function getBooks(payload) {
+export function getBooks() {
   return {
     type: GET_BOOKS,
-    payload,
   };
 }
 export function addBook(payload) {

@@ -19,7 +19,17 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import Accordion from "@material-ui/core/Accordion";
 import InsertCommentIcon from "@material-ui/icons/InsertComment";
-
+import { connect } from "react-redux";
+import { getBooks } from "../../js/actions";
+import store from "../../js/store";
+const mapStateToProps = (state) => {
+  return { books: state.books };
+};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     books: () => dispatch(getBooks()),
+//   };
+// };
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 250,
@@ -49,25 +59,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AllBooks() {
-  const [books, updateBooks] = useState([]);
+function AllBooks({ books }) {
+  console.log(books);
+  // const [books, updateBooks] = useState([]);
   const [liked, setLiked] = useState(false);
-  const [likes, updateLikes] = useState([]);
+  // const [likes, updateLikes] = useState([]);
   // const [expanded, setExpanded] = React.useState(false);
   // const handleExpandClick = (id) => {
   //   setExpanded(!expanded);
   // };
 
   useEffect(() => {
-    axios.get("http://localhost:5000/books/books").then((res) => {
-      updateBooks(res.data.data);
-      console.log(books);
-    });
-    axios.get("http://localhost:5000/likes/likes").then((res) => {
-      updateLikes(res.data.data);
-      console.log(likes);
-    });
-  }, []);
+    // console.log(store.dispatch(getBooks()));
+  });
+  //   axios.get("http://localhost:5000/likes/likes").then((res) => {
+  //     updateLikes(res.data.data);
+  //     console.log(likes);
+  //   });
+  // }, []);
   const likeBook = (liked) => {
     setLiked(!liked);
   };
@@ -139,3 +148,6 @@ export default function AllBooks() {
     </>
   );
 }
+
+const Books = connect(mapStateToProps)(AllBooks);
+export default Books;
