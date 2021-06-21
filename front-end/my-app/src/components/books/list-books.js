@@ -22,9 +22,7 @@ import InsertCommentIcon from "@material-ui/icons/InsertComment";
 import { connect } from "react-redux";
 import { getBooks } from "../../js/actions";
 import store from "../../js/store";
-const mapStateToProps = (state) => {
-  return { books: state.books };
-};
+
 // const mapDispatchToProps = (dispatch) => {
 //   return {
 //     books: () => dispatch(getBooks()),
@@ -59,24 +57,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AllBooks({ books }) {
-  console.log(books);
-  // const [books, updateBooks] = useState([]);
+function AllBooks({ bookss, getBooks }) {
+  const [books, updateBooks] = useState([]);
   const [liked, setLiked] = useState(false);
   // const [likes, updateLikes] = useState([]);
   // const [expanded, setExpanded] = React.useState(false);
   // const handleExpandClick = (id) => {
   //   setExpanded(!expanded);
   // };
+  // console.log(bookss);
 
   useEffect(() => {
-    // console.log(store.dispatch(getBooks()));
+    getBooks();
   });
-  //   axios.get("http://localhost:5000/likes/likes").then((res) => {
-  //     updateLikes(res.data.data);
-  //     console.log(likes);
-  //   });
-  // }, []);
+
   const likeBook = (liked) => {
     setLiked(!liked);
   };
@@ -149,5 +143,13 @@ function AllBooks({ books }) {
   );
 }
 
-const Books = connect(mapStateToProps)(AllBooks);
+const mapStateToProps = (state) => {
+  console.log(state, "from map");
+  return { bookss: state.books };
+};
+const mapDispatchToProps = {
+  getBooks: getBooks,
+};
+
+const Books = connect(mapStateToProps, mapDispatchToProps)(AllBooks);
 export default Books;

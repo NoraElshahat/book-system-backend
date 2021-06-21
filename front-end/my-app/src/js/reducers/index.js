@@ -19,10 +19,10 @@ export default function rootReducer(state = initialState, action) {
         books: payload,
       };
     case GET_BOOKS:
-      axios.get("localhost:5000/books/books").then((res) => {
+      axios.get("http://localhost:5000/books/books").then((res) => {
         return {
-          ...state,
-          books: res.data,
+          ...state.books,
+          books: res.data.data,
         };
       });
 
