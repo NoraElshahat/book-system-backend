@@ -13,21 +13,14 @@ import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import axios from "axios";
 import Box from "@material-ui/core/Box";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import Accordion from "@material-ui/core/Accordion";
 import InsertCommentIcon from "@material-ui/icons/InsertComment";
 import { connect } from "react-redux";
-import { getBooks } from "../../js/actions";
-import store from "../../js/store";
+import { Link } from "react-router-dom";
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     books: () => dispatch(getBooks()),
-//   };
-// };
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 250,
@@ -55,11 +48,14 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  link: {
+    textDecoration: "none",
+    color: "#707070",
+  },
 }));
 
 function AllBooks(props) {
-  console.log(props.bookss, "hhhh");
-  const [books, updateBooks] = useState([]);
+  console.log(props, "hhhh");
   const [liked, setLiked] = useState(false);
   // const [likes, updateLikes] = useState([]);
   // const [expanded, setExpanded] = React.useState(false);
@@ -78,19 +74,21 @@ function AllBooks(props) {
         return (
           <Box>
             <Card className={classes.root}>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    R
-                  </Avatar>
-                }
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title={item.title}
-              />
+              <Link to={`/book/${item._id}`} className={classes.link}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title={item.title}
+                />
+              </Link>
               <CardMedia
                 className={classes.media}
                 image={`http://localhost:5000/${item.picture}`}
@@ -141,7 +139,7 @@ function AllBooks(props) {
 
 const mapStateToProps = (state) => {
   return {
-    bookss: state.books[0],
+    bookss: state.books,
   };
 };
 
