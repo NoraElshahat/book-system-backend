@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import clsx from 'clsx';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import axios from 'axios';
-import Box from '@material-ui/core/Box';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse';
-import Accordion from '@material-ui/core/Accordion';
-import InsertCommentIcon from '@material-ui/icons/InsertComment';
-import { connect } from 'react-redux';
-import { getBooks } from '../../js/actions';
-import store from '../../js/store';
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import clsx from "clsx";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import { red } from "@material-ui/core/colors";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import axios from "axios";
+import Box from "@material-ui/core/Box";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Collapse from "@material-ui/core/Collapse";
+import Accordion from "@material-ui/core/Accordion";
+import InsertCommentIcon from "@material-ui/icons/InsertComment";
+import { connect } from "react-redux";
+import { getBooks } from "../../js/actions";
+import store from "../../js/store";
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {
@@ -33,11 +33,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 250,
     marginTop: 100,
     marginLeft: 50,
-    float: 'left',
+    float: "left",
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   // expand: {
   //   transform: "rotate(0deg)",
@@ -50,15 +50,15 @@ const useStyles = makeStyles((theme) => ({
   //   transform: "rotate(180deg)",
   // },
   content: {
-    textOverflow: 'ellipsis',
+    textOverflow: "ellipsis",
   },
   avatar: {
     backgroundColor: red[500],
   },
 }));
 
-function AllBooks({ props, getBooks }) {
-  console.log(props, 'hhhh');
+function AllBooks(props) {
+  console.log(props.bookss, "hhhh");
   const [books, updateBooks] = useState([]);
   const [liked, setLiked] = useState(false);
   // const [likes, updateLikes] = useState([]);
@@ -66,11 +66,6 @@ function AllBooks({ props, getBooks }) {
   // const handleExpandClick = (id) => {
   //   setExpanded(!expanded);
   // };
-  // console.log(bookss);
-
-  useEffect(() => {
-    getBooks();
-  });
 
   const likeBook = (liked) => {
     setLiked(!liked);
@@ -79,7 +74,7 @@ function AllBooks({ props, getBooks }) {
 
   return (
     <>
-      {books.map((item) => {
+      {props.bookss.map((item) => {
         return (
           <Box>
             <Card className={classes.root}>
@@ -145,14 +140,9 @@ function AllBooks({ props, getBooks }) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.books, 'from map');
   return {
-    bookss: state.books,
+    bookss: state.books[0],
   };
 };
-const mapDispatchToProps = {
-  getBooks: getBooks,
-};
 
-const Books = connect(mapStateToProps, mapDispatchToProps)(AllBooks);
-export default Books;
+export default connect(mapStateToProps)(AllBooks);
